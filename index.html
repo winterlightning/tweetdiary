@@ -1,16 +1,103 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bootstrap 101 Template</title>
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-  	
-    <h1>Hello, world!</h1>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="lib/twitter-text-1.5.0.js" type="text/javascript" charset="utf-8"></script>
+<head>
+	<title>Tweet Diary</title>
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	
+	<style type="text/css">
+	.holder {
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.feed_content {
+		position: relative;
+		margin-left: 58px;
+		line-height: 16px;
+		padding: 8px 8px 10px 10px;
+		min-height: 45px;
+		-webkit-user-select: text;
+		user-select: text;
+	}
+	
+	.avatar {
+	position: absolute;
+	top: 10px;
+	left: -48px;
+	border-radius: 3px;
+	}
+		
+	.time {
+	position: absolute;
+	right: 8px;
+	top: 9px;
+	}
+	.actions {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	margin-bottom: 0px;
+	margin-right: 7px;
+	display: none;
+	}
+	
+	.feed:hover .actions { display: block; }
 
-  </body>
+	.actions a {
+		font-family: "glyphish";
+		font-size: 25px;
+		color: #ccc;
+	}
+	
+	.actions a:hover { 
+		text-decoration: none; 
+		color: #fff; 
+		text-shadow: rgba(0, 0, 0, .5) 0 1px 1px, #fff 0 0 10px;
+	}
+	
+	#writearea {
+		width: 90%;
+		border: 0px;
+		background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/asfalt.png);
+		color: #EEE;
+		font-size: 30px;
+		padding: 5%;
+		line-height: 1.2em;
+		border-radius-top: 0px;
+	}
+			
+	</style>
+	
+</head>
+
+<body>
+
+	<!-- <div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="#" style="margin: 0px auto; text-align: center; float: none;">Tweet Diary</a>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="container">
+
+		<div class="row">
+			<div class="span3"></div>
+			<div class="span6" style="text-align:center;">
+				<textarea rows="5" id="writearea"></textarea>
+
+				<div class="holder" style="height: 500px; text-align: left;"><div class="feed"><div class="feed_content"><header><div class="time">3 days ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>2 month 2 million is the greatest reality show ever, watch it if you never seen it on netflix  </p><div class="actions"><a onclick="window.like_obj('412910_10100693904950715')">8</a><!-- <a _tmplitem="223" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">14 days ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "❤'s that you're traveling in..." on Aiko Matsui's photo. </p><div class="actions"><a onclick="window.like_obj('412910_10100682132432935')">8</a><!-- <a _tmplitem="224" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">18 days ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang  &gt; Marc Udoff </strong><p> Ray Wang likes Cornell University College of Engineering. Cornell University College of Engineering</p><div class="media"><a href="http://www.facebook.com/CornellEngineering?ref=stream" target="_blank"><img src="http://profile.ak.fbcdn.net/hprofile-ak-prn1/50396_305345306221151_157628139_n.jpg" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100677687355905')">8</a><!-- <a _tmplitem="225" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">a month ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "Happy birthday" on Eli Hantgan's timeline. </p><div class="actions"><a onclick="window.like_obj('412910_10100660356666745')">8</a><!-- <a _tmplitem="226" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">a month ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "If you are referring to Hyuna..." on AB Bird's status. </p><div class="actions"><a onclick="window.like_obj('412910_10100656416547775')">8</a><!-- <a _tmplitem="227" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">a month ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>  Tower of God manga | Read Tower of God online</p><div class="media"><a href="http://kissmanga.com/Manga/Tower-of-God?fb_action_ids=10100653605566005&amp;fb_action_types=og.likes&amp;fb_source=other_multiline&amp;action_object_map=%7B%2210100653605566005%22%3A10151053205205075%7D&amp;action_type_map=%7B%2210100653605566005%22%3A%22og.likes%22%7D&amp;action_ref_map=%5B%5D" target="_blank"><img src="http://external.ak.fbcdn.net/safe_image.php?d=AQCiysQn8utWx8Bj&amp;w=200&amp;h=200&amp;url=http%3A%2F%2Fkissmanga.com%2FUploads%2FEtc%2F8-17-2011%2F7743252cad0e.jpg&amp;crop" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100653605566005')">8</a><!-- <a _tmplitem="228" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">a month ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "clark bostonian flexlite...." on John Schemitsch's status. </p><div class="actions"><a onclick="window.like_obj('412910_10100648818055215')">8</a><!-- <a _tmplitem="229" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">a month ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "This is awesome" on Evan Ng's link. </p><div class="actions"><a onclick="window.like_obj('412910_10100639450188495')">8</a><!-- <a _tmplitem="230" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "Congrats on your wedding! May..." on Oleg Sagalchik's Wall. </p><div class="actions"><a onclick="window.like_obj('412910_10100634036806955')">8</a><!-- <a _tmplitem="231" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "Yes, although I'm not as good..." on his own post on Aiko Matsui's wall. </p><div class="actions"><a onclick="window.like_obj('412910_10100628921732605')">8</a><!-- <a _tmplitem="232" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> Ray Wang likes Bing Fund. </p><div class="actions"><a onclick="window.like_obj('412910_10100628221740395')">8</a><!-- <a _tmplitem="233" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "happy birthday Aiko!" on Aiko Matsui's timeline. </p><div class="actions"><a onclick="window.like_obj('412910_10100628122629015')">8</a><!-- <a _tmplitem="234" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "Happy birthday dude" on Jacek Stypik's Wall. </p><div class="actions"><a onclick="window.like_obj('412910_10100628117534225')">8</a><!-- <a _tmplitem="235" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> Ray Wang likes a link. OUYA: A New Kind of Video Game Console</p><div class="media"><a href="http://www.kickstarter.com/projects/ouya/ouya-a-new-kind-of-video-game-console" target="_blank"><img src="http://external.ak.fbcdn.net/safe_image.php?d=AQC8-8GMRpH7sgiy&amp;w=130&amp;h=130&amp;url=http%3A%2F%2Fs3.amazonaws.com%2Fksr%2Fprojects%2F183979%2Fphoto-full.jpg%3F1341289509" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100625688991045')">8</a><!-- <a _tmplitem="236" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>client test II  </p><div class="actions"><a onclick="window.like_obj('412910_10100621940707635')">8</a><!-- <a _tmplitem="237" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>client test  </p><div class="actions"><a onclick="window.like_obj('412910_10100621933177725')">8</a><!-- <a _tmplitem="238" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>test wall post  </p><div class="actions"><a onclick="window.like_obj('412910_10100620964858245')">8</a><!-- <a _tmplitem="239" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>  What is preventing github pages from being multi-domained?</p><div class="media"><a href="http://www.quora.com/permalink/480UZZPeM" target="_blank"><img src="http://platform.ak.fbcdn.net/www/app_full_proxy.php?app=136609459636&amp;v=1&amp;size=z&amp;cksum=04711930641f5cbda2123880d4c1054b&amp;src=http%3A%2F%2Fqph.cf.quoracdn.net%2Fmain-thumb-t-2542-200-AfI5YuEAP4JwsBRrhCFERd2sVTBAvqkM.jpeg" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100620837792885')">8</a><!-- <a _tmplitem="240" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> Ray Wang likes a link. Facebook Developers</p><div class="media"><a href="http://developers.facebook.com/" target="_blank"><img src="http://external.ak.fbcdn.net/safe_image.php?d=AQBsRmR0_mfipbJx&amp;w=90&amp;h=90&amp;url=http%3A%2F%2Fstatic.ak.fbcdn.net%2Frsrc.php%2Fv2%2FyS%2Fx%2FrwsSMfAU1li.png" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100620017207345')">8</a><!-- <a _tmplitem="241" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "Because there is no maximum..." on The Other 98%'s photo. </p><div class="actions"><a onclick="window.like_obj('412910_10100620163723725')">8</a><!-- <a _tmplitem="242" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> Ray Wang likes a link. Graph API</p><div class="media"><a href="http://developers.facebook.com/docs/reference/api/" target="_blank"><img src="http://external.ak.fbcdn.net/safe_image.php?d=AQCIW4JhTFTg6mJc&amp;w=90&amp;h=90&amp;url=http%3A%2F%2Fdevelopers.facebook.com%2Fattachment%2Fplatformlogo.jpg" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100619895680885')">8</a><!-- <a _tmplitem="243" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p>test  </p><div class="actions"><a onclick="window.like_obj('412910_10100619847178085')">8</a><!-- <a _tmplitem="244" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> Ray Wang likes Kippt. Kippt</p><div class="media"><a href="http://www.facebook.com/kipptapp?ref=stream" target="_blank"><img src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/592172_129885790447633_1945660826_n.jpg" alt="mediaelement" class="media_photo" height="65" width="auto"></a></div><div class="actions"><a onclick="window.like_obj('412910_10100617479467995')">8</a><!-- <a _tmplitem="245" >d</a> --></div></header></div></div><div class="feed"><div class="feed_content"><header><div class="time">2 months ago</div><img src="http://graph.facebook.com/412910/picture" alt="" class="avatar 412910"><strong class="name">Ray Wang </strong><p> "Happy birthday" on Phil Larochelle's Wall. </p><div class="actions"><a onclick="window.like_obj('412910_10100605653916495')">8</a><!-- <a _tmplitem="246" >d</a> --></div></header></div></div></div>
+
+			</div>
+			<div class="span3"></div>
+		</div>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="lib/twitter-text-1.5.0.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
 </html>
