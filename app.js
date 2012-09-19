@@ -7,28 +7,33 @@
   Entry = Nimbus.Model.setup("Entry", ["text", "time"]);
 
   window.create_new_entry = function() {
-    var content;
+    var content, template, x;
     console.log("create new entry called");
     content = $("#writearea").val();
     if (content !== "") {
-      Entry.create({
+      x = Entry.create({
         text: content,
         time: Date.now().toString()
       });
-      return $("#writearea").val("");
+      $("#writearea").val("");
+      template = render_entry(x);
+      return $(".holder").prepend(template);
     }
   };
 
+  window.render_entry = function(x) {
+    var d;
+    d = new Date(Date(x.time));
+    return "<div class='feed'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>May</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div>3 days ago</div>\n    <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>\n</header>\n</div></div>";
+  };
+
   jQuery(function($) {
-    var d, template, x, _i, _len, _ref, _results;
+    var template, x, _i, _len, _ref, _results;
     _ref = Entry.all();
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
-      d = new Date(Date(x.time));
-      console.log(d.getDate());
-      template = "<div class='feed'><div class='feed_content'>\n<header>\n   <div class='time'>3 days ago</div>\n   <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>May</span></p></div>\n   <p class=\"diary_text\">" + x.text + "</p>\n   <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>\n</header>\n</div></div>";
-      console.log(x, template);
+      template = render_entry(x);
       _results.push($(".holder").prepend(template));
     }
     return _results;
