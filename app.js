@@ -13,7 +13,7 @@
     if (content !== "") {
       x = Entry.create({
         text: content,
-        time: Date.now().toString()
+        time: (new Date()).toString()
       });
       $("#writearea").val("");
       template = render_entry(x);
@@ -22,9 +22,11 @@
   };
 
   window.render_entry = function(x) {
-    var d;
-    d = new Date(Date(x.time));
-    return "<div class='feed'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>May</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div>3 days ago</div>\n    <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>\n</header>\n</div></div>";
+    var d, n, timeago;
+    d = new Date(x.time);
+    timeago = jQuery.timeago(d);
+    n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div>" + timeago + "</div>\n    <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>\n</header>\n</div></div>";
   };
 
   jQuery(function($) {

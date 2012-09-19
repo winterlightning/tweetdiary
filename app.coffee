@@ -8,22 +8,27 @@ window.create_new_entry = ()->
   
   content = $("#writearea").val()
   if content isnt ""
-    x = Entry.create(text: content, time: Date.now().toString() )
+    x = Entry.create(text: content, time: (new Date()).toString() )
     $("#writearea").val("") #clear the div afterwards
     
     template = render_entry(x)
     $(".holder").prepend(template)
 
 window.render_entry = (x) ->
-  d = new Date(Date(x.time))
-  """<div class='feed'><div class='feed_content'>
+  d = new Date(x.time)
+  timeago = jQuery.timeago(d);
+  
+  n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  
+  """<div class='feed' id='#{x.id}'><div class='feed_content'>
   <header>
-      <div class="date avatar"><p>#{ d.getDate() }<span>May</span></p></div>
+      <div class="date avatar"><p>#{ d.getDate() }<span>#{ n[d.getMonth()] }</span></p></div>
       <p class="diary_text">#{ x.text }</p>
-      <div>3 days ago</div>
+      <div>#{ timeago }</div>
       <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>
   </header>
   </div></div>"""
+
 
 
 #initialization
