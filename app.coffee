@@ -24,7 +24,7 @@ window.render_entry = (x) ->
   <header>
       <div class="date avatar"><p>#{ d.getDate() }<span>#{ n[d.getMonth()] }</span></p></div>
       <p class="diary_text">#{ x.text }</p>
-      <div>#{ timeago }</div>
+      <div class="timeago">#{ timeago }</div>
       <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>
   </header>
   </div></div>"""
