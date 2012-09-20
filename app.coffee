@@ -26,8 +26,8 @@ window.render_entry = (x) ->
       <p class="diary_text">#{ x.text }</p>
       <div class="timeago">#{ timeago }</div>
       <div class='actions'>
-        <a onclick='window.like_obj('412910_10100693904950715')' class="icon-pencil icon-large"></a>
-        <a onclick='window.like_obj('412910_10100693904950715')' class="icon-trash icon-large"></a>
+        <a onclick='' class="icon-pencil"></a>
+        <a onclick='' class="icon-trash"></a>
       </div>
   </header>
   </div></div>"""
