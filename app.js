@@ -26,7 +26,7 @@
     d = new Date(x.time);
     timeago = jQuery.timeago(d);
     n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'><a onclick='window.like_obj('412910_10100693904950715')'>8</a></div>\n</header>\n</div></div>";
+    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='window.like_obj('412910_10100693904950715')' class=\"icon-pencil icon-large\"></a>\n      <a onclick='window.like_obj('412910_10100693904950715')' class=\"icon-trash icon-large\"></a>\n    </div>\n</header>\n</div></div>";
   };
 
   jQuery(function($) {

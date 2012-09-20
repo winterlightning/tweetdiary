@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../font/fontawesome-webfont.eot');
+  src: url('../font/fontawesome-webfont.eot?#iefix') format('eot'), url('../font/fontawesome-webfont.woff') format('woff'), url('../font/fontawesome-webfont.ttf') format('truetype'), url('../font/fontawesome-webfont.svg#FontAwesome') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .holder {
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -38,7 +46,7 @@
 }
 
 .actions a {
-	font-family: "glyphish";
+	font-family: "FontAwesome";
 	font-size: 25px;
 	color: #ccc;
 }
