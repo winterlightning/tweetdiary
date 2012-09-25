@@ -23,10 +23,9 @@ window.render_entry = (x) ->
   """<div class='feed' id='#{x.id}'><div class='feed_content'>
   <header>
       <div class="date avatar"><p>#{ d.getDate() }<span>#{ n[d.getMonth()] }</span></p></div>
-      <p class="diary_text">#{ x.text }</p>
+      <p class="diary_text" id="#{ x.id }" contenteditable>#{ x.text }</p>
       <div class="timeago">#{ timeago }</div>
       <div class='actions'>
-        <a onclick=''>save</a>
         <a onclick=''>delete</a>
       </div>
   </header>
@@ -47,6 +46,13 @@ jQuery ($) ->
   for x in Entry.all()
     template = render_entry(x)
     $(".holder").prepend(template)
+
+  for x in $(".diary_text")
+    $(x).blur( (x)-> 
+      e = Entry.find(x.target.id)
+      e.text = x.target.innerHTML
+      e.save()
+    )
 
 exports = this #this is needed to get around the coffeescript namespace wrap
 exports.Entry = Entry
