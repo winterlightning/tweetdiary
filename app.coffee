@@ -26,11 +26,15 @@ window.render_entry = (x) ->
       <p class="diary_text" id="#{ x.id }" contenteditable>#{ x.text }</p>
       <div class="timeago">#{ timeago }</div>
       <div class='actions'>
-        <a onclick=''>delete</a>
+        <a onclick='delete_entry("#{ x.id }")'>delete</a>
       </div>
   </header>
   </div></div>"""
 
+window.delete_entry = (id) ->
+  x = Entry.find(id)
+  $(".feed#"+id).remove()
+  x.destroy()
 
 window.onTestChange = () ->
     key = window.event.keyCode
