@@ -26,7 +26,18 @@
     d = new Date(x.time);
     timeago = jQuery.timeago(d);
     n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='' class=\"icon-pencil\"></a>\n      <a onclick='' class=\"icon-trash\"></a>\n    </div>\n</header>\n</div></div>";
+    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\">" + x.text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick=''>save</a>\n      <a onclick=''>delete</a>\n    </div>\n</header>\n</div></div>";
+  };
+
+  window.onTestChange = function() {
+    var key;
+    key = window.event.keyCode;
+    if (key === 13) {
+      window.create_new_entry();
+      return true;
+    } else {
+      return true;
+    }
   };
 
   jQuery(function($) {

@@ -26,13 +26,21 @@ window.render_entry = (x) ->
       <p class="diary_text">#{ x.text }</p>
       <div class="timeago">#{ timeago }</div>
       <div class='actions'>
-        <a onclick='' class="icon-pencil"></a>
-        <a onclick='' class="icon-trash"></a>
+        <a onclick=''>save</a>
+        <a onclick=''>delete</a>
       </div>
   </header>
   </div></div>"""
 
 
+window.onTestChange = () ->
+    key = window.event.keyCode
+
+    if key is 13 
+        window.create_new_entry();
+        return true
+    else
+        return true
 
 #initialization
 jQuery ($) ->
