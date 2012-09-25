@@ -4,16 +4,19 @@
 
   Nimbus.Auth.setup("Dropbox", "lejn01o1njs1elo", "2f02rqbnn08u8at", "diary_app");
 
-  Entry = Nimbus.Model.setup("Entry", ["text", "time"]);
+  Entry = Nimbus.Model.setup("Entry", ["text", "time", "tags"]);
 
   window.create_new_entry = function() {
-    var content, template, x;
+    var content, hashtags, template, x;
     console.log("create new entry called");
     content = $("#writearea").val();
     if (content !== "") {
+      hashtags = twttr.txt.extractHashtags(content);
+      console.log("hashtags", hashtags);
       x = Entry.create({
         text: content,
-        time: (new Date()).toString()
+        time: (new Date()).toString(),
+        tags: hashtags
       });
       $("#writearea").val("");
       template = render_entry(x);
@@ -22,11 +25,19 @@
   };
 
   window.render_entry = function(x) {
-    var d, n, timeago;
+    var d, n, processed_text, t, timeago, _i, _len, _ref;
     d = new Date(x.time);
     timeago = jQuery.timeago(d);
     n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\" id=\"" + x.id + "\" contenteditable>" + x.text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='delete_entry(\"" + x.id + "\")'>delete</a>\n    </div>\n</header>\n</div></div>";
+    processed_text = x.text;
+    if (x.tags != null) {
+      _ref = x.tags;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        t = _ref[_i];
+        x.text.replace(t, "<a>" + t + "</a>");
+      }
+    }
+    return "<div class='feed' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\" id=\"" + x.id + "\" contenteditable>" + processed_text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='delete_entry(\"" + x.id + "\")'>delete</a>\n    </div>\n</header>\n</div></div>";
   };
 
   window.delete_entry = function(id) {
