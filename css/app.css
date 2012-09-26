@@ -7,20 +7,11 @@ input:-moz-placeholder {
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-.feed_content {
-	position: relative;
-	margin-left: 65px;
-	line-height: 16px;
-	padding: 8px 8px 10px 10px;
-	min-height: 45px;
-	-webkit-user-select: text;
-	user-select: text;
-}
 
 .avatar {
 	position: absolute;
 	top: 10px;
-	left: -52px;
+	left: -57px;
 	border-radius: 3px;
 }
 
@@ -83,6 +74,16 @@ body {
 	box-shadow: 0 0 5px 5px rgba(1,1,1,0.2);
 }
 
+.feed_content {
+	position: relative;
+	line-height: 16px;
+	padding: 8px 8px 10px 10px;
+	min-height: 45px;
+	-webkit-user-select: text;
+	user-select: text;
+	margin-left: 65px;
+}
+
 .feed {
 	position: relative;
 	cursor: pointer;
@@ -90,6 +91,7 @@ body {
 	min-height: 80px;
 	border-bottom: 1px solid #ddd;
 }
+
 
 .outside {
 	background-color: #444;
@@ -113,6 +115,7 @@ body {
 	-webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
 	color: #eee;
 }
+
 .date p {
 	font-family: Helvetica, sans-serif;
 	font-size: 23px;
