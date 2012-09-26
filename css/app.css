@@ -162,18 +162,18 @@ padding-right: 29px;
 }
 
 .footer {  
-	background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/asfalt.png);
     text-align: left;
     border-radius: 0px 0px 5px 5px;
+    border-top: 1px solid #eee;
 }
 
 #filter {
 	margin: 10px;
-	background-color: rgba(1, 1, 1, 1) !important;
 	border: 0px;
 	outline: none;
-	color: #EEE;
-	border-radius: 5px;
-	font-size: 20px;	
-	padding: 5px;
+	color: #444;
+	border-radius: 17px;
+	font-size: 20px;
+	padding: 5px 17px;
+	padding-left: 5px;
 }

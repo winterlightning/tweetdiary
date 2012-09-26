@@ -21,6 +21,7 @@ window.filter_entry = (e) ->
   console.log("filter entries", e)
   $(".feed").hide()
   $(".#{e}").show()
+  $("#filter").val("#"+e)
 
 window.render_entry = (x) ->
   d = new Date(x.time)
@@ -55,15 +56,6 @@ window.delete_entry = (id) ->
   $(".feed#"+id).remove()
   x.destroy()
 
-window.onTestChange = () ->
-    key = window.event.keyCode
-
-    if key is 13 
-        window.create_new_entry();
-        return true
-    else
-        return true
-
 #initialization
 jQuery ($) ->
   for x in Entry.all()
@@ -80,6 +72,14 @@ jQuery ($) ->
       
       e.save()
     )
+  
+  #bind the filter section
+  $("#filter").keyup( ()->
+    if $("#filter").val() isnt "" and $( "."+ $("#filter").val().replace("#", ""))
+      window.filter_entry( $("#filter").val().replace("#", "") )
+    if $("#filter").val() is ""
+      $(".feed").show()
+  )
 
 exports = this #this is needed to get around the coffeescript namespace wrap
 exports.Entry = Entry

@@ -27,7 +27,8 @@
   window.filter_entry = function(e) {
     console.log("filter entries", e);
     $(".feed").hide();
-    return $("." + e).show();
+    $("." + e).show();
+    return $("#filter").val("#" + e);
   };
 
   window.render_entry = function(x) {
@@ -58,19 +59,8 @@
     return x.destroy();
   };
 
-  window.onTestChange = function() {
-    var key;
-    key = window.event.keyCode;
-    if (key === 13) {
-      window.create_new_entry();
-      return true;
-    } else {
-      return true;
-    }
-  };
-
   jQuery(function($) {
-    var template, x, _i, _j, _len, _len1, _ref, _ref1, _results;
+    var template, x, _i, _j, _len, _len1, _ref, _ref1;
     _ref = Entry.all();
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
@@ -78,10 +68,9 @@
       $(".holder").prepend(template);
     }
     _ref1 = $(".diary_text");
-    _results = [];
     for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
       x = _ref1[_j];
-      _results.push($(x).blur(function(x) {
+      $(x).blur(function(x) {
         var e, hashtags;
         e = Entry.find(x.target.id);
         e.text = x.target.innerHTML;
@@ -89,9 +78,16 @@
         console.log("hashtags", hashtags);
         e.tags = hashtags;
         return e.save();
-      }));
+      });
     }
-    return _results;
+    return $("#filter").keyup(function() {
+      if ($("#filter").val() !== "" && $("." + $("#filter").val().replace("#", ""))) {
+        window.filter_entry($("#filter").val().replace("#", ""));
+      }
+      if ($("#filter").val() === "") {
+        return $(".feed").show();
+      }
+    });
   });
 
   exports = this;
