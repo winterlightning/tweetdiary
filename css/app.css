@@ -57,7 +57,7 @@ input:-moz-placeholder {
 #writearea {
 	width: 90%;
 	border: 0px;
-	background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/asfalt.png);
+	background: url('../img/asfalt.png');
 	color: #EEE;
 	font-size: 30px;
 	padding: 5%;
@@ -70,7 +70,7 @@ input:-moz-placeholder {
 }
 
 body {
-	background: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png);
+	background: url('../img/low_contrast_linen.png');
 }
 
 #maindiv {
