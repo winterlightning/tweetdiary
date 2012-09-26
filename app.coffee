@@ -9,7 +9,6 @@ window.create_new_entry = ()->
   content = $("#writearea").val()
   if content isnt ""
     hashtags = twttr.txt.extractHashtags(content)
-    console.log("hashtags", hashtags)
     x = Entry.create(text: content, create_time: (new Date()).toString(), tags: hashtags )
     
     $("#writearea").val("") #clear the div afterwards
@@ -75,7 +74,6 @@ jQuery ($) ->
       e = Entry.find(x.target.id)
       e.text = x.target.innerHTML
       hashtags = twttr.txt.extractHashtags(x.target.innerHTML)
-      console.log("hashtags", hashtags)
       e.tags = hashtags
       
       rendered = render_entry(e)
