@@ -177,3 +177,18 @@ padding-right: 29px;
 	padding: 5px 17px;
 	padding-left: 5px;
 }
+
+#x_button {
+	font-size: 20px;
+	position: relative;
+	float: right;
+	top: 20px;
+	right: 15px;
+	text-decoration: none;
+	color: #999;
+	cursor: pointer;
+}
+
+#x_button:hover {
+	color: #555;
+}

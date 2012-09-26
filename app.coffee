@@ -1,6 +1,6 @@
 Nimbus.Auth.setup("Dropbox", "lejn01o1njs1elo", "2f02rqbnn08u8at", "diary_app") #switch this with your own app key (please!!!!)
 
-Entry = Nimbus.Model.setup("Entry", ["text", "time", "tags"])
+Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"])
 
 #function to add a new entry
 window.create_new_entry = ()->
@@ -10,7 +10,7 @@ window.create_new_entry = ()->
   if content isnt ""
     hashtags = twttr.txt.extractHashtags(content)
     console.log("hashtags", hashtags)
-    x = Entry.create(text: content, time: (new Date()).toString(), tags: hashtags )
+    x = Entry.create(text: content, create_time: (new Date()).toString(), tags: hashtags )
     
     $("#writearea").val("") #clear the div afterwards
     
@@ -22,9 +22,10 @@ window.filter_entry = (e) ->
   $(".feed").hide()
   $(".#{e}").show()
   $("#filter").val("#"+e)
+  $("#x_button").show()
 
 window.render_entry = (x) ->
-  d = new Date(x.time)
+  d = new Date(x.create_time)
   timeago = jQuery.timeago(d);
   
   n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -56,8 +57,15 @@ window.delete_entry = (id) ->
   $(".feed#"+id).remove()
   x.destroy()
 
+window.clear_tags = ()->
+  $("#filter").val("")
+  $(".feed").show()
+  $("#x_button").hide()
+    
 #initialization
 jQuery ($) ->
+  $("#x_button").hide()
+  
   for x in Entry.all()
     template = render_entry(x)
     $(".holder").prepend(template)
@@ -77,8 +85,9 @@ jQuery ($) ->
   $("#filter").keyup( ()->
     if $("#filter").val() isnt "" and $( "."+ $("#filter").val().replace("#", ""))
       window.filter_entry( $("#filter").val().replace("#", "") )
+      $("#x_button").show()
     if $("#filter").val() is ""
-      $(".feed").show()
+      clear_tags()
   )
 
 exports = this #this is needed to get around the coffeescript namespace wrap
