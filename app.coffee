@@ -24,7 +24,7 @@ window.filter_entry = (e) ->
   $("#filter").val("#"+e)
   $("#x_button").show()
 
-window.render_entry = (x) ->
+window.render_entry = (x, newday) ->
   d = new Date(x.create_time)
   timeago = jQuery.timeago(d);
   
@@ -33,12 +33,14 @@ window.render_entry = (x) ->
   processed_text = x.text
   tag_string = ""
   
+  newday = "" if not newday?
+  
   if x.tags?
     for t in x.tags
       tag_string = tag_string + t + " "
       processed_text = processed_text.replace("#"+t, "<a onclick='filter_entry(\"#{ t }\");return false;'>##{ t }</a>")
   
-  """<div class='feed #{ tag_string }' id='#{x.id}'><div class='feed_content'>
+  """<div class='feed #{ tag_string } #{ newday }' id='#{x.id}'><div class='feed_content'>
   <header>
       <div class="date avatar"><p>#{ d.getDate() }<span>#{ n[d.getMonth()] }</span></p></div>
       <p class="diary_text" id="#{ x.id }" contenteditable>#{ processed_text }</p>
@@ -58,13 +60,24 @@ window.clear_tags = ()->
   $("#filter").val("")
   $(".feed").show()
   $("#x_button").hide()
+
+window.datesort = (a, b) ->
+  (if (a.create_time < b.create_time) then -1 else 1)
     
 #initialization
 jQuery ($) ->
   $("#x_button").hide()
+  current_day = null
   
-  for x in Entry.all()
-    template = render_entry(x)
+  for x in Entry.all().sort(datesort)  
+    d = new Date(x.create_time)
+    d_str = d.getDate().toString() + d.getMonth().toString() + d.getFullYear().toString()
+          
+    if current_day is null or current_day isnt d_str
+      template = render_entry(x, "newday")
+      current_day = d_str
+    else
+      template = render_entry(x)
     $(".holder").prepend(template)
 
   for x in $(".diary_text")

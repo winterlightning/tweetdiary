@@ -32,13 +32,16 @@
     return $("#x_button").show();
   };
 
-  window.render_entry = function(x) {
+  window.render_entry = function(x, newday) {
     var d, n, processed_text, t, tag_string, timeago, _i, _len, _ref;
     d = new Date(x.create_time);
     timeago = jQuery.timeago(d);
     n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     processed_text = x.text;
     tag_string = "";
+    if (!(newday != null)) {
+      newday = "";
+    }
     if (x.tags != null) {
       _ref = x.tags;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -47,7 +50,7 @@
         processed_text = processed_text.replace("#" + t, "<a onclick='filter_entry(\"" + t + "\");return false;'>#" + t + "</a>");
       }
     }
-    return "<div class='feed " + tag_string + "' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\" id=\"" + x.id + "\" contenteditable>" + processed_text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='delete_entry(\"" + x.id + "\")'>delete</a>\n    </div>\n</header>\n</div></div>";
+    return "<div class='feed " + tag_string + " " + newday + "' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\" id=\"" + x.id + "\" contenteditable>" + processed_text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='delete_entry(\"" + x.id + "\")'>delete</a>\n    </div>\n</header>\n</div></div>";
   };
 
   window.delete_entry = function(id) {
@@ -63,13 +66,29 @@
     return $("#x_button").hide();
   };
 
+  window.datesort = function(a, b) {
+    if (a.create_time < b.create_time) {
+      return -1;
+    } else {
+      return 1;
+    }
+  };
+
   jQuery(function($) {
-    var template, x, _i, _j, _len, _len1, _ref, _ref1;
+    var current_day, d, d_str, template, x, _i, _j, _len, _len1, _ref, _ref1;
     $("#x_button").hide();
-    _ref = Entry.all();
+    current_day = null;
+    _ref = Entry.all().sort(datesort);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
-      template = render_entry(x);
+      d = new Date(x.create_time);
+      d_str = d.getDate().toString() + d.getMonth().toString() + d.getFullYear().toString();
+      if (current_day === null || current_day !== d_str) {
+        template = render_entry(x, "newday");
+        current_day = d_str;
+      } else {
+        template = render_entry(x);
+      }
       $(".holder").prepend(template);
     }
     _ref1 = $(".diary_text");

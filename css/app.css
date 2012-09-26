@@ -54,19 +54,23 @@ input:-moz-placeholder {
 	color: #999 !important;
 }
 
+form#topform {
+	background: url('../img/asfalt.png');
+	border-radius: 0px 0px 5px 5px;
+}
+
 #writearea {
 	width: 90%;
 	border: 0px;
-	background: url('../img/asfalt.png');
 	color: #EEE;
 	font-size: 30px;
 	padding: 5%;
 	line-height: 1.2em;
-	border-radius: 0px 0px 5px 5px;
 	box-shadow: none;
 	margin-bottom: 0px;
 	resize: none;
 	outline: none;
+	background: none;
 }
 
 body {
@@ -176,6 +180,7 @@ padding-right: 29px;
 	font-size: 20px;
 	padding: 5px 17px;
 	padding-left: 5px;
+	width: 500px;
 }
 
 #x_button {
