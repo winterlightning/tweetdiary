@@ -36,9 +36,6 @@ window.render_entry = (x) ->
   if x.tags?
     for t in x.tags
       tag_string = tag_string + t + " "
-      console.log(t)
-      console.log(processed_text)
-      console.log(tag_string)
       processed_text = processed_text.replace("#"+t, "<a onclick='filter_entry(\"#{ t }\");return false;'>##{ t }</a>")
   
   """<div class='feed #{ tag_string }' id='#{x.id}'><div class='feed_content'>
@@ -77,6 +74,9 @@ jQuery ($) ->
       hashtags = twttr.txt.extractHashtags(x.target.innerHTML)
       console.log("hashtags", hashtags)
       e.tags = hashtags
+      
+      rendered = render_entry(e)
+      $("#"+e.id).replaceWith( rendered )
       
       e.save()
     )

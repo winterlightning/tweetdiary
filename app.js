@@ -44,9 +44,6 @@
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         t = _ref[_i];
         tag_string = tag_string + t + " ";
-        console.log(t);
-        console.log(processed_text);
-        console.log(tag_string);
         processed_text = processed_text.replace("#" + t, "<a onclick='filter_entry(\"" + t + "\");return false;'>#" + t + "</a>");
       }
     }
@@ -79,12 +76,14 @@
     for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
       x = _ref1[_j];
       $(x).blur(function(x) {
-        var e, hashtags;
+        var e, hashtags, rendered;
         e = Entry.find(x.target.id);
         e.text = x.target.innerHTML;
         hashtags = twttr.txt.extractHashtags(x.target.innerHTML);
         console.log("hashtags", hashtags);
         e.tags = hashtags;
+        rendered = render_entry(e);
+        $("#" + e.id).replaceWith(rendered);
         return e.save();
       });
     }
