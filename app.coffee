@@ -60,11 +60,20 @@ window.clear_tags = ()->
 
 window.datesort = (a, b) ->
   (if (a.create_time < b.create_time) then -1 else 1)
-    
+
+window.remove_window = ()->
+  if Nimbus.Auth.authorized()
+    $("#loading").hide()
+
 #initialization
 jQuery ($) ->
   if Nimbus.Auth.authorized()
     $("#loading").hide()
+  
+  #if it is still in the middle of the auth process, call in a bit
+  if localStorage["state"] is "Auth"
+    console.log("state is auth")
+    setTimeout("remove_window()", 5000);
   
   $("#x_button").hide()
   
