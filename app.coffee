@@ -63,6 +63,9 @@ window.datesort = (a, b) ->
     
 #initialization
 jQuery ($) ->
+  if Nimbus.Auth.authorized()
+    $("#loading").hide()
+  
   $("#x_button").hide()
   
   for x in Entry.all().sort(datesort)  

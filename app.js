@@ -72,6 +72,9 @@
 
   jQuery(function($) {
     var template, x, _i, _j, _len, _len1, _ref, _ref1;
+    if (Nimbus.Auth.authorized()) {
+      $("#loading").hide();
+    }
     $("#x_button").hide();
     _ref = Entry.all().sort(datesort);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
