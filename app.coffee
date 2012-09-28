@@ -6,7 +6,7 @@ Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"])
 Nimbus.Auth.authorized_callback = ()->
 
   if Nimbus.Auth.authorized()
-    $("#loading").hide()
+    $("#loading").fadeOut()
 
 #function to add a new entry
 window.create_new_entry = ()->
@@ -70,7 +70,7 @@ window.datesort = (a, b) ->
 #initialization
 jQuery ($) ->
   if Nimbus.Auth.authorized()
-    $("#loading").hide()
+    $("#loading").fadeOut()
   
   $("#x_button").hide()
   

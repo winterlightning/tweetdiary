@@ -8,7 +8,7 @@
 
   Nimbus.Auth.authorized_callback = function() {
     if (Nimbus.Auth.authorized()) {
-      return $("#loading").hide();
+      return $("#loading").fadeOut();
     }
   };
 
@@ -79,7 +79,7 @@
   jQuery(function($) {
     var template, x, _i, _j, _len, _len1, _ref, _ref1;
     if (Nimbus.Auth.authorized()) {
-      $("#loading").hide();
+      $("#loading").fadeOut();
     }
     $("#x_button").hide();
     _ref = Entry.all().sort(datesort);
