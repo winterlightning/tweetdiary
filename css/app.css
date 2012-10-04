@@ -6,12 +6,13 @@ input:-moz-placeholder {
 .holder {
 	overflow-y: auto;
 	overflow-x: hidden;
+	background: url("../badge_01_background.png") no-repeat center center;
 }
 
 .avatar {
 	position: absolute;
 	top: 10px;
-	left: -57px;
+	left: -54px;
 	border-radius: 3px;
 }
 
@@ -90,6 +91,7 @@ body {
 	display: block;
 	min-height: 80px;
 	border-bottom: 1px solid #ddd;
+	background-color: #fff;
 }
 
 

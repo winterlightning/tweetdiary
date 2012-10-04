@@ -6,6 +6,12 @@
 
   Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"]);
 
+  Nimbus.Auth.authorized_callback = function() {
+    if (Nimbus.Auth.authorized()) {
+      return $("#loading").fadeOut();
+    }
+  };
+
   window.create_new_entry = function() {
     var content, hashtags, template, x;
     console.log("create new entry called");
@@ -72,6 +78,9 @@
 
   jQuery(function($) {
     var template, x, _i, _j, _len, _len1, _ref, _ref1;
+    if (Nimbus.Auth.authorized()) {
+      $("#loading").fadeOut();
+    }
     $("#x_button").hide();
     _ref = Entry.all().sort(datesort);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

@@ -2,6 +2,12 @@ Nimbus.Auth.setup("Dropbox", "lejn01o1njs1elo", "2f02rqbnn08u8at", "diary_app") 
 
 Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"])
 
+#This is called when your successfully authorize
+Nimbus.Auth.authorized_callback = ()->
+
+  if Nimbus.Auth.authorized()
+    $("#loading").fadeOut()
+
 #function to add a new entry
 window.create_new_entry = ()->
   console.log("create new entry called")
@@ -60,9 +66,12 @@ window.clear_tags = ()->
 
 window.datesort = (a, b) ->
   (if (a.create_time < b.create_time) then -1 else 1)
-    
+
 #initialization
 jQuery ($) ->
+  if Nimbus.Auth.authorized()
+    $("#loading").fadeOut()
+  
   $("#x_button").hide()
   
   for x in Entry.all().sort(datesort)  
