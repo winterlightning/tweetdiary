@@ -8,7 +8,10 @@
 
   Nimbus.Auth.authorized_callback = function() {
     if (Nimbus.Auth.authorized()) {
-      return $("#loading").fadeOut();
+      $("#loading").fadeOut();
+      return Entry.sync_all(function() {
+        return console.log("synced all");
+      });
     }
   };
 
