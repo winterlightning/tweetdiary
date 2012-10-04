@@ -7,6 +7,10 @@ Nimbus.Auth.authorized_callback = ()->
 
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
+    
+    Entry.sync_all( ()->
+      console.log("synced all")
+    )
 
 #function to add a new entry
 window.create_new_entry = ()->
