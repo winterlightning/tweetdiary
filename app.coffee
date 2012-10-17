@@ -9,7 +9,7 @@ Nimbus.Auth.authorized_callback = ()->
     $("#loading").fadeOut()
     
     Entry.sync_all( ()->
-      console.log("synced all")
+      render_entries()
     )
 
 #function to add a new entry
@@ -71,13 +71,9 @@ window.clear_tags = ()->
 window.datesort = (a, b) ->
   (if (a.create_time < b.create_time) then -1 else 1)
 
-#initialization
-jQuery ($) ->
-  if Nimbus.Auth.authorized()
-    $("#loading").fadeOut()
-  
-  $("#x_button").hide()
-  
+window.render_entries= () ->
+  $(".holder").html("")
+
   for x in Entry.all().sort(datesort)  
     template = render_entry(x)
     $(".holder").prepend(template)
@@ -94,6 +90,15 @@ jQuery ($) ->
       
       e.save()
     )
+
+#initialization
+jQuery ($) ->
+  if Nimbus.Auth.authorized()
+    $("#loading").fadeOut()
+  
+  $("#x_button").hide()
+  
+  render_entries()
   
   #bind the filter section
   $("#filter").keyup( ()->
@@ -102,6 +107,10 @@ jQuery ($) ->
       $("#x_button").show()
     if $("#filter").val() is ""
       clear_tags()
+  )
+
+  Entry.sync_all( ()->
+      render_entries()
   )
 
 exports = this #this is needed to get around the coffeescript namespace wrap

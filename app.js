@@ -10,7 +10,7 @@
     if (Nimbus.Auth.authorized()) {
       $("#loading").fadeOut();
       return Entry.sync_all(function() {
-        return console.log("synced all");
+        return render_entries();
       });
     }
   };
@@ -79,18 +79,9 @@
     }
   };
 
-  window.sync = function() {
-    return Entry.sync_all(function() {
-      return console.log("synced all");
-    });
-  };
-
-  jQuery(function($) {
-    var template, x, _i, _j, _len, _len1, _ref, _ref1;
-    if (Nimbus.Auth.authorized()) {
-      $("#loading").fadeOut();
-    }
-    $("#x_button").hide();
+  window.render_entries = function() {
+    var template, x, _i, _j, _len, _len1, _ref, _ref1, _results;
+    $(".holder").html("");
     _ref = Entry.all().sort(datesort);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
@@ -98,9 +89,10 @@
       $(".holder").prepend(template);
     }
     _ref1 = $(".diary_text");
+    _results = [];
     for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
       x = _ref1[_j];
-      $(x).blur(function(x) {
+      _results.push($(x).blur(function(x) {
         var e, hashtags, rendered;
         e = Entry.find(x.target.id);
         e.text = x.target.innerHTML;
@@ -109,9 +101,18 @@
         rendered = render_entry(e);
         $("#" + e.id).replaceWith(rendered);
         return e.save();
-      });
+      }));
     }
-    return $("#filter").keyup(function() {
+    return _results;
+  };
+
+  jQuery(function($) {
+    if (Nimbus.Auth.authorized()) {
+      $("#loading").fadeOut();
+    }
+    $("#x_button").hide();
+    render_entries();
+    $("#filter").keyup(function() {
       if ($("#filter").val() !== "" && $("." + $("#filter").val().replace("#", ""))) {
         window.filter_entry($("#filter").val().replace("#", ""));
         $("#x_button").show();
@@ -119,6 +120,9 @@
       if ($("#filter").val() === "") {
         return clear_tags();
       }
+    });
+    return Entry.sync_all(function() {
+      return render_entries();
     });
   });
 
