@@ -202,3 +202,19 @@ padding-right: 29px;
 #x_button:hover {
 	color: #555;
 }
+
+.button_bar a { 
+	color: #eee;
+	margin: 4px 5px;
+}
+
+.button_bar a:hover {
+	color: #0081C2;
+	text-decoration: none;
+}
+
+.button_bar span {
+	font-family: 'Typicons';	
+	vertical-align: middle;
+	font-size: 18px;
+}

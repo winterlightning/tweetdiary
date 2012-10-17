@@ -33,6 +33,10 @@
 			<div class="span3"></div>
 			<div class="span6" id="maindiv" style="text-align:center;">
 				<form onSubmit="create_new_entry();return false;" style="margin-bottom: 0px;" id="topform">
+					<div class="button_bar" style="float: right; margin-right: 4px;">
+						<a href=""><span>$</span>logout</a>
+						<a href=""><span>J</span>sync</a>
+					</div>
 					<input id="writearea" placeholder="Write here, press return to save" >
 				</form>
 				<!-- <div class="outside"><a href="#" id="write" class="btn" style="font-size: 20px;" onclick="create_new_entry()">Save</a></div> -->
@@ -42,8 +46,12 @@
 					<input id="filter" placeholder="hashtag here to filter" ><a class="typicn" id="x_button" onclick="clear_tags()">6</a>
 				</div>
 			</div>
-			<div class="span3"></div>
+			<div class="span3">
+
+			</div>
 		</div>
+		
+		
 	</div>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>

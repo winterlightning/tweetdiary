@@ -79,6 +79,12 @@
     }
   };
 
+  window.sync = function() {
+    return Entry.sync_all(function() {
+      return console.log("synced all");
+    });
+  };
+
   jQuery(function($) {
     var template, x, _i, _j, _len, _len1, _ref, _ref1;
     if (Nimbus.Auth.authorized()) {
