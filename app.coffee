@@ -2,6 +2,11 @@ Nimbus.Auth.setup("Dropbox", "lejn01o1njs1elo", "2f02rqbnn08u8at", "diary_app") 
 
 Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"])
 
+Entry.ordersort = (a, b) ->
+  x = new Date(a.create_time)
+  y = new Date(b.create_time)
+  (if (x < y) then -1 else 1)
+
 #This is called when your successfully authorize
 Nimbus.Auth.authorized_callback = ()->
 
@@ -68,13 +73,10 @@ window.clear_tags = ()->
   $(".feed").show()
   $("#x_button").hide()
 
-window.datesort = (a, b) ->
-  (if (a.create_time < b.create_time) then -1 else 1)
-
 window.render_entries= () ->
   $(".holder").html("")
 
-  for x in Entry.all().sort(datesort)  
+  for x in Entry.all().sort(Entry.ordersort)  
     template = render_entry(x)
     $(".holder").prepend(template)
 
@@ -90,6 +92,13 @@ window.render_entries= () ->
       
       e.save()
     )
+
+window.sync = -> Entry.sync_all( -> render_entries() )
+
+window.log_out = ->
+  for val, key of localStorage
+    delete localStorage[key]
+  $("#loading").show()
 
 #initialization
 jQuery ($) ->

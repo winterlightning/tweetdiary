@@ -34,8 +34,8 @@
 			<div class="span6" id="maindiv" style="text-align:center;">
 				<form onSubmit="create_new_entry();return false;" style="margin-bottom: 0px;" id="topform">
 					<div class="button_bar" style="float: right; margin-right: 4px;">
-						<a href=""><span>$</span>logout</a>
-						<a href=""><span>J</span>sync</a>
+						<a onclick="window.log_out()"><span>$</span>logout</a>
+						<a onclick="window.sync()"><span>J</span>sync</a>
 					</div>
 					<input id="writearea" placeholder="Write here, press return to save" >
 				</form>
@@ -55,7 +55,7 @@
 	</div>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="lib/twitter-text-1.5.0.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/jquery.timeago.js" type="text/javascript" charset="utf-8"></script>

@@ -6,6 +6,17 @@
 
   Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"]);
 
+  Entry.ordersort = function(a, b) {
+    var x, y;
+    x = new Date(a.create_time);
+    y = new Date(b.create_time);
+    if (x < y) {
+      return -1;
+    } else {
+      return 1;
+    }
+  };
+
   Nimbus.Auth.authorized_callback = function() {
     if (Nimbus.Auth.authorized()) {
       $("#loading").fadeOut();
@@ -71,18 +82,10 @@
     return $("#x_button").hide();
   };
 
-  window.datesort = function(a, b) {
-    if (a.create_time < b.create_time) {
-      return -1;
-    } else {
-      return 1;
-    }
-  };
-
   window.render_entries = function() {
     var template, x, _i, _j, _len, _len1, _ref, _ref1, _results;
     $(".holder").html("");
-    _ref = Entry.all().sort(datesort);
+    _ref = Entry.all().sort(Entry.ordersort);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       x = _ref[_i];
       template = render_entry(x);
@@ -104,6 +107,21 @@
       }));
     }
     return _results;
+  };
+
+  window.sync = function() {
+    return Entry.sync_all(function() {
+      return render_entries();
+    });
+  };
+
+  window.log_out = function() {
+    var key, val;
+    for (val in localStorage) {
+      key = localStorage[val];
+      delete localStorage[key];
+    }
+    return $("#loading").show();
   };
 
   jQuery(function($) {
