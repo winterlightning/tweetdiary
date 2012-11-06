@@ -2,7 +2,7 @@
 (function() {
   var Entry, exports;
 
-  Nimbus.Auth.setup("Dropbox", "lejn01o1njs1elo", "2f02rqbnn08u8at", "diary_app");
+  Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "diary_app");
 
   Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"]);
 
@@ -43,12 +43,25 @@
     }
   };
 
+  window.delete_entry = function(id) {
+    var x;
+    x = Entry.find(id);
+    $(".feed#" + id).remove();
+    return x.destroy();
+  };
+
   window.filter_entry = function(e) {
     console.log("filter entries", e);
     $(".feed").hide();
     $("." + e).show();
     $("#filter").val("#" + e);
     return $("#x_button").show();
+  };
+
+  window.clear_tags = function() {
+    $("#filter").val("");
+    $(".feed").show();
+    return $("#x_button").hide();
   };
 
   window.render_entry = function(x) {
@@ -67,19 +80,6 @@
       }
     }
     return "<div class='feed " + tag_string + "' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\" id=\"" + x.id + "\" contenteditable>" + processed_text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='delete_entry(\"" + x.id + "\")'>delete</a>\n    </div>\n</header>\n</div></div>";
-  };
-
-  window.delete_entry = function(id) {
-    var x;
-    x = Entry.find(id);
-    $(".feed#" + id).remove();
-    return x.destroy();
-  };
-
-  window.clear_tags = function() {
-    $("#filter").val("");
-    $(".feed").show();
-    return $("#x_button").hide();
   };
 
   window.render_entries = function() {

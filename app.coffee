@@ -1,5 +1,5 @@
 #First initialize the app with (cloudprovider, key, secret, name of the folder in dropbox)
-Nimbus.Auth.setup("Dropbox", "lejn01o1njs1elo", "2f02rqbnn08u8at", "diary_app") 
+Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "diary_app")
 
 #create a model for each entry
 Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"])
