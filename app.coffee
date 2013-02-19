@@ -1,5 +1,10 @@
-#First initialize the app with (cloudprovider, key, secret, name of the folder in dropbox)
-Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "diary_app")
+#function called after authroization
+Nimbus.Auth.authorized_callback = ()->
+  console.log("tweetdiary authorized callback done")
+  
+  if Nimbus.Auth.authorized()
+    $("#loading").fadeOut()
+
 
 #create a model for each entry
 Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"])
@@ -11,7 +16,11 @@ Entry.ordersort = (a, b) ->
   (if (x < y) then -1 else 1)
 
 #Nimbus.Auth.authorized_callback is called when your app finish the authorization procedure. In this case, it fades out the loading div and then sync all the entries for the cloud.
+
+###
 Nimbus.Auth.authorized_callback = ()->
+
+  console.log("tweetdiary authorized callback done")
 
   if Nimbus.Auth.authorized()
     $("#loading").fadeOut()
@@ -19,6 +28,7 @@ Nimbus.Auth.authorized_callback = ()->
     Entry.sync_all( ()->
       render_entries()
     )
+###
 
 #Function to add a new entry
 window.create_new_entry = ()->
@@ -81,6 +91,22 @@ window.render_entry = (x) ->
   </header>
   </div></div>"""
 
+window.blur_trigger= (x) ->
+  $(x).blur( (x)-> 
+    console.log("blur called")
+    e = Entry.find(x.target.id)
+    e.text = x.target.innerHTML
+    hashtags = twttr.txt.extractHashtags(x.target.innerHTML)
+    e.tags = hashtags
+    
+    rendered = render_entry(e)
+    $("#"+e.id).replaceWith( rendered )
+    
+    e.save()
+    
+    a = $("#"+e.id + "  .diary_text")
+    window.blur_trigger( a )
+  )
 
 #function to render all the entries, not important to how NimbusBase works
 window.render_entries= () ->
@@ -92,17 +118,7 @@ window.render_entries= () ->
 
   for x in $(".diary_text")
 	#this is triggered when you go out of the text box and an edit event happens. On a edit, you find the Entry and then change it. Call .save() to save.
-    $(x).blur( (x)-> 
-      e = Entry.find(x.target.id)
-      e.text = x.target.innerHTML
-      hashtags = twttr.txt.extractHashtags(x.target.innerHTML)
-      e.tags = hashtags
-      
-      rendered = render_entry(e)
-      $("#"+e.id).replaceWith( rendered )
-      
-      e.save()
-    )
+    window.blur_trigger(x)
 
 window.sync = -> Entry.sync_all( -> render_entries() )
 
@@ -114,12 +130,20 @@ window.log_out = ->
 
 #initialization function that is called at the beginning 
 jQuery ($) ->
-  if Nimbus.Auth.authorized()
-    $("#loading").fadeOut()
   
   $("#x_button").hide()
   
   render_entries()
+  
+  Nimbus.Auth.set_app_ready () ->
+    console.log("app ready called")
+    
+    if Nimbus.Auth.authorized()
+      $("#loading").fadeOut()
+     
+    Entry.sync_all( ()->
+        render_entries()
+    )
   
   #bind the filter section
   $("#filter").keyup( ()->
@@ -128,10 +152,6 @@ jQuery ($) ->
       $("#x_button").show()
     if $("#filter").val() is ""
       clear_tags()
-  )
-
-  Entry.sync_all( ()->
-      render_entries()
   )
 
 exports = this #this is needed to get around the coffeescript namespace wrap
