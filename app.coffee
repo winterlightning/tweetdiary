@@ -44,6 +44,8 @@ window.create_new_entry = ()->
     
     template = render_entry(x)
     $(".holder").prepend(template)
+    
+  
 
 #Function to delete a entry
 window.delete_entry = (id) ->
@@ -141,9 +143,9 @@ jQuery ($) ->
     if Nimbus.Auth.authorized()
       $("#loading").fadeOut()
      
-    Entry.sync_all( ()->
-        render_entries()
-    )
+      Entry.sync_all( ()->
+          render_entries()
+      )
   
   #bind the filter section
   $("#filter").keyup( ()->

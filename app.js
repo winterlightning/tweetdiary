@@ -148,10 +148,10 @@
       console.log("app ready called");
       if (Nimbus.Auth.authorized()) {
         $("#loading").fadeOut();
+        return Entry.sync_all(function() {
+          return render_entries();
+        });
       }
-      return Entry.sync_all(function() {
-        return render_entries();
-      });
     });
     return $("#filter").keyup(function() {
       if ($("#filter").val() !== "" && $("." + $("#filter").val().replace("#", ""))) {
