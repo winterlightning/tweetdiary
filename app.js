@@ -133,11 +133,7 @@
   };
 
   window.log_out = function() {
-    var key, val;
-    for (val in localStorage) {
-      key = localStorage[val];
-      delete localStorage[key];
-    }
+    Nimbus.Auth.logout();
     return $("#loading").show();
   };
 
