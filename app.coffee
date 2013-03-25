@@ -127,7 +127,7 @@ window.sync = -> Entry.sync_all( -> render_entries() )
 #log out and delete everything in localstorage
 window.log_out = ->
   Nimbus.Auth.logout()
-  $("#loading").show()
+  $("#loading").fadeIn()
 
 #initialization function that is called at the beginning 
 jQuery ($) ->

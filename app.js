@@ -134,7 +134,7 @@
 
   window.log_out = function() {
     Nimbus.Auth.logout();
-    return $("#loading").show();
+    return $("#loading").fadeIn();
   };
 
   jQuery(function($) {
