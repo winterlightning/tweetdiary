@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+.jPM-specific {
+	display: none
+}
+#trigger-on {
+	background: #3684ab;
+	background: -o-linear-gradient(top, #3f94bf, #2d7498);
+	background: -ms-linear-gradient(top, #3f94bf, #2d7498);
+	background: -moz-linear-gradient(top, #3f94bf, #2d7498);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #3f94bf), color-stop(1, #2d7498));
+	background: -webkit-linear-gradient(#3f94bf, #2d7498);
+	background: linear-gradient(top, #3f94bf, #2d7498);
+	-moz-box-shadow: 0 1px 10px #222;
+	-webkit-box-shadow: 0 1px 10px #222;
+	box-shadow: 0 1px 10px #222;
+	font-family: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-weight: 700;
+	display: block;
+	position: fixed;
+	top: 0;
+	right: 7.5%;
+	padding: 0.25em 1em;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border: 1px solid #1b5572;
+	border-top: none;
+	text-decoration: none;
+	text-shadow: 0 -1px 1px #222;
+	color: #f7f7f7
+}
+footer.main {
+	margin-bottom: 0;
+	padding-bottom: 1em;
+	text-align: center
+}
+.jPanelMenu header.main {
+	background: #317ca2;
+	background: -o-linear-gradient(top, #3f94bf, #246485);
+	background: -ms-linear-gradient(top, #3f94bf, #246485);
+	background: -moz-linear-gradient(top, #3f94bf, #246485);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #3f94bf), color-stop(1, #246485));
+	background: -webkit-linear-gradient(#3f94bf, #246485);
+	background: linear-gradient(top, #3f94bf, #246485);
+	-moz-box-shadow: 0 1px 5px rgba(34,34,34,0.5);
+	-webkit-box-shadow: 0 1px 5px rgba(34,34,34,0.5);
+	box-shadow: 0 1px 5px rgba(34,34,34,0.5);
+	position: fixed;
+	top: 0;
+	width: 85%;
+	max-width: none;
+	height: 50px;
+	margin: 0;
+	padding: 0 7.5%;
+	border-bottom: 1px solid #1b5572;
+	z-index: 10
+}
+.jPanelMenu header.main .logo a, .jPanelMenu header.main .menu-trigger {
+	display: block;
+	height: 100%;
+	text-shadow: 0 -1px 1px #222;
+	line-height: 50px;
+	color: #f7f7f7
+}
+.jPanelMenu header.main .logo {
+	font-family: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-weight: 700;
+	float: none;
+	width: 60%;
+	margin: 0 auto
+}
+.jPanelMenu header.main .logo a {
+	position: static
+}
+.jPanelMenu header.main .logo a:before {
+	display: none !important
+}
+.jPanelMenu header.main .menu-trigger {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 1.5em;
+	font-size: 1.2em;
+	line-height: 57.5px
+}
+.jPanelMenu header.main .menu-trigger:active {
+	text-shadow: 0 -1px 1px #222, 0 0 50px #f7f7f7
+}
+.jPanelMenu header.main nav {
+	text-indent: -9999px
+}
+.jPanelMenu .content {
+	padding-top: 4em
+}
+.jPanelMenu .content section.intro h2 {
+	padding-top: 0
+}
+.jPanelMenu .content h2 {
+	margin-top: 0;
+	padding-top: 62.5px
+}
+.jPanelMenu .content .spec, .jPanelMenu .content h3 {
+	margin-top: 0;
+	padding-top: 4em
+}
+.jPanelMenu .content .spec h3 {
+	padding-top: 0
+}
+.jPanelMenu .content .jPM-specific {
+	display: block
+}
+#jPanelMenu-menu {
+	background: #1b1e24;}
+#jPanelMenu-menu ul {
+	border-bottom: none;}
+#jPanelMenu-menu li a {
+	background: #1b1e24;
+	background: -moz-linear-gradient(top, #3e3e3e, #383838);
+	font-family: "museo-sans", "Museo Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-weight: 700;
+	display: block;
+	padding: 0.9em 7%;
+	border-top: none;
+	border-bottom: none;
+	text-decoration: none;
+	text-shadow: 0 -1px 2px #222;
+	color: #f7f7f7
+}
+#jPanelMenu-menu li a:hover, #jPanelMenu-menu li a:focus {
+	background: #404040;
+	background: -o-linear-gradient(top, #484848, #383838);
+	background: -ms-linear-gradient(top, #484848, #383838);
+	background: -moz-linear-gradient(top, #484848, #383838);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #484848), color-stop(1, #383838));
+	background: #22262e;
+	background: linear-gradient(top, #484848, #383838)
+}
+#jPanelMenu-menu li a:active {
+	background: #363636;
+	background: -o-linear-gradient(top, #3e3e3e, #2e2e2e);
+	background: -ms-linear-gradient(top, #3e3e3e, #2e2e2e);
+	background: -moz-linear-gradient(top, #3e3e3e, #2e2e2e);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #3e3e3e), color-stop(1, #2e2e2e));
+	background: -webkit-linear-gradient(#3e3e3e, #2e2e2e);
+	background: linear-gradient(top, #3e3e3e, #2e2e2e);
+	-moz-box-shadow: 0 2px 7px #222 inset;
+	-webkit-box-shadow: 0 2px 7px #222 inset;
+	box-shadow: 0 2px 7px #222 inset;
+	border-top-color: #222;
+	background: #22262e;
+	/*padding-top: 0.55em;
+	padding-bottom: 0.45em */
+}
+.jPanelMenu-panel {
+	-moz-box-shadow: 0 0 25px #222;
+	-webkit-box-shadow: 0 0 25px #222;
+	box-shadow: 0 0 25px #222
+}

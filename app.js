@@ -2,11 +2,28 @@
 (function() {
   var Entry, exports;
 
-  Nimbus.Auth.authorized_callback = function() {
-    console.log("tweetdiary authorized callback done");
-    if (Nimbus.Auth.authorized()) {
-      return $("#loading").fadeOut();
-    }
+  $(function() {
+    new FastClick(document.body);
+    render_entries();
+    return Nimbus.Auth.set_app_ready(function() {
+      console.log("app ready called");
+      if (Nimbus.Auth.authorized()) {
+        $("#loginModal").removeClass("active");
+        return window.auto_sync();
+      }
+    });
+    /*
+      $("#writearea").focus((e)->
+        $(document).scrollTop(0)
+        e.preventDefault()
+        $('html, body').animate({scrollTop:0,scrollLeft:0}, 'fast')
+      )
+    */
+
+  });
+
+  window.toggle_slide = function() {
+    return $("body").toggleClass("slide_left");
   };
 
   Entry = Nimbus.Model.setup("Entry", ["text", "create_time", "tags"]);
@@ -22,19 +39,59 @@
     }
   };
 
-  /*
-  Nimbus.Auth.authorized_callback = ()->
-  
-    console.log("tweetdiary authorized callback done")
-  
-    if Nimbus.Auth.authorized()
-      $("#loading").fadeOut()
-      
-      Entry.sync_all( ()->
-        render_entries()
-      )
-  */
+  window.render_entry = function(x) {
+    var d, date_string, n, processed_text, t, tag_string, timeago, _i, _len, _ref;
+    d = new Date(x.create_time);
+    timeago = jQuery.timeago(d);
+    n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    processed_text = x.text;
+    tag_string = "";
+    if (d.getDate() < 10) {
+      date_string = "0" + d.getDate();
+    } else {
+      date_string = d.getDate().toString();
+    }
+    if (x.tags != null) {
+      _ref = x.tags;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        t = _ref[_i];
+        tag_string = tag_string + t + " ";
+        processed_text = processed_text.replace("#" + t, "<a onclick='filter_entry(\"" + t + "\");return false;'>#" + t + "</a>");
+      }
+    }
+    return "<li class=\"event\" id=\"" + x.id + "\">       \n  <label></label>\n  <div class=\"thumb user-1\"><span><strong>" + date_string + "</strong> " + n[d.getMonth()] + "</span></div>\n  <div class=\"content-perspective\">\n    <div class=\"content-timeline\">\n      <div class=\"content-inner\">\n        <h3>" + processed_text + "</h3>\n        \n      </div>\n\n      <div class=\"event-menu\">\n          <a onclick=\"window.edit_entry('" + x.id + "')\" style=\"padding-bottom: 7px\">\n            <i class=\"icon-pencil\" style=\"font-size: 18px;\"></i>\n          </a>\n          <a style=\"padding-bottom: 7px\" onclick=\"window.delete_entry('" + x.id + "')\">\n            <i class=\"icon-trash\" style=\"font-size: 17px;\"></i>\n          </a>          \n      </div>\n\n    </div>\n  </div>\n</li>";
+  };
 
+  window.render_entries = function() {
+    var template, x, _i, _len, _ref;
+    $(".timeline").html("");
+    _ref = Entry.all().sort(Entry.ordersort);
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      x = _ref[_i];
+      template = render_entry(x);
+      $(".timeline").prepend(template);
+    }
+    return $(".event").click(function() {
+      return $(this).toggleClass("active");
+    });
+  };
+
+  window.delete_entry = function(id) {
+    var x;
+    if (!(id != null)) {
+      id = window.current_entry;
+    }
+    x = Entry.find(id);
+    $(".event#" + id).remove();
+    x.destroy();
+    return $("#editModal").removeClass("active");
+  };
+
+  window.log_out = function() {
+    Nimbus.Auth.logout();
+    $("body").toggleClass("slide_left");
+    return $("#loginModal").addClass("active");
+  };
 
   window.create_new_entry = function() {
     var content, hashtags, template, x;
@@ -49,116 +106,49 @@
       });
       $("#writearea").val("");
       template = render_entry(x);
-      return $(".holder").prepend(template);
+      $(".timeline").prepend(template);
+      $("#addModal").toggleClass("active");
+      return $(".event").click(function() {
+        return $(this).toggleClass("active");
+      });
     }
   };
 
-  window.delete_entry = function(id) {
+  window.edit_entry = function(id) {
     var x;
+    console.log("edit entry called");
     x = Entry.find(id);
-    $(".feed#" + id).remove();
-    return x.destroy();
+    $("#editarea").val(x.text);
+    $("#editModal").addClass("active");
+    return window.current_entry = id;
   };
 
-  window.filter_entry = function(e) {
-    console.log("filter entries", e);
-    $(".feed").hide();
-    $("." + e).show();
-    $("#filter").val("#" + e);
-    return $("#x_button").show();
+  window.save_entry = function() {
+    var x;
+    x = Entry.find(window.current_entry);
+    x.text = $("#editarea").val();
+    x.save();
+    window.render_entries();
+    return $("#editModal").removeClass("active");
   };
 
-  window.clear_tags = function() {
-    $("#filter").val("");
-    $(".feed").show();
-    return $("#x_button").hide();
-  };
+  window.last_data = "";
 
-  window.render_entry = function(x) {
-    var d, n, processed_text, t, tag_string, timeago, _i, _len, _ref;
-    d = new Date(x.create_time);
-    timeago = jQuery.timeago(d);
-    n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    processed_text = x.text;
-    tag_string = "";
-    if (x.tags != null) {
-      _ref = x.tags;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        t = _ref[_i];
-        tag_string = tag_string + t + " ";
-        processed_text = processed_text.replace("#" + t, "<a onclick='filter_entry(\"" + t + "\");return false;'>#" + t + "</a>");
-      }
+  window.auto_sync = function() {
+    console.log("auto sync called");
+    if (Nimbus.Auth.authorized()) {
+      return Entry.sync_all(function() {
+        if (window.last_data !== localStorage["Entry"]) {
+          console.log("got here");
+          window.render_entries();
+          window.last_data = localStorage["Entry"];
+        }
+        return setTimeout("window.auto_sync()", 2000);
+      });
+    } else {
+      return setTimeout("window.auto_sync()", 2000);
     }
-    return "<div class='feed " + tag_string + "' id='" + x.id + "'><div class='feed_content'>\n<header>\n    <div class=\"date avatar\"><p>" + (d.getDate()) + "<span>" + n[d.getMonth()] + "</span></p></div>\n    <p class=\"diary_text\" id=\"" + x.id + "\" contenteditable>" + processed_text + "</p>\n    <div class=\"timeago\">" + timeago + "</div>\n    <div class='actions'>\n      <a onclick='delete_entry(\"" + x.id + "\")'>delete</a>\n    </div>\n</header>\n</div></div>";
   };
-
-  window.blur_trigger = function(x) {
-    return $(x).blur(function(x) {
-      var a, e, hashtags, rendered;
-      console.log("blur called");
-      e = Entry.find(x.target.id);
-      e.text = x.target.innerHTML;
-      hashtags = twttr.txt.extractHashtags(x.target.innerHTML);
-      e.tags = hashtags;
-      rendered = render_entry(e);
-      $("#" + e.id).replaceWith(rendered);
-      e.save();
-      a = $("#" + e.id + "  .diary_text");
-      return window.blur_trigger(a);
-    });
-  };
-
-  window.render_entries = function() {
-    var template, x, _i, _j, _len, _len1, _ref, _ref1, _results;
-    $(".holder").html("");
-    _ref = Entry.all().sort(Entry.ordersort);
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      x = _ref[_i];
-      template = render_entry(x);
-      $(".holder").prepend(template);
-    }
-    _ref1 = $(".diary_text");
-    _results = [];
-    for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-      x = _ref1[_j];
-      _results.push(window.blur_trigger(x));
-    }
-    return _results;
-  };
-
-  window.sync = function() {
-    return Entry.sync_all(function() {
-      return render_entries();
-    });
-  };
-
-  window.log_out = function() {
-    Nimbus.Auth.logout();
-    return $("#loading").fadeIn();
-  };
-
-  jQuery(function($) {
-    $("#x_button").hide();
-    render_entries();
-    Nimbus.Auth.set_app_ready(function() {
-      console.log("app ready called");
-      if (Nimbus.Auth.authorized()) {
-        $("#loading").fadeOut();
-        return Entry.sync_all(function() {
-          return render_entries();
-        });
-      }
-    });
-    return $("#filter").keyup(function() {
-      if ($("#filter").val() !== "" && $("." + $("#filter").val().replace("#", ""))) {
-        window.filter_entry($("#filter").val().replace("#", ""));
-        $("#x_button").show();
-      }
-      if ($("#filter").val() === "") {
-        return clear_tags();
-      }
-    });
-  });
 
   exports = this;
 
